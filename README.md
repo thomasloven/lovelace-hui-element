@@ -69,3 +69,11 @@ The `custom:hui-` trick was always a dirty hack that worked by accident rather t
 
 ---
 <a href="https://www.buymeacoffee.com/uqD6KHCdJ" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
+<!--
+```
+resources:
+  url: /local/hui-element.js
+  type: js
+```
+-->
