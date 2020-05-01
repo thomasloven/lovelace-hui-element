@@ -21,6 +21,8 @@ Sometimes you may want to use things in other places, though. That's where `hui-
 
 ## Usage
 
+For installation, updating and debugging instructions [see this guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins).
+
 Let's say you want to use the `section` entity row in place of a card.
 
 Normally, a section row configuration may look like:
