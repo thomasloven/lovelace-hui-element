@@ -45,6 +45,10 @@ class HuiElement extends LitElement {
     return this;
   }
 
+  get shadowRoot() {
+    return this.element.shadowRoot;
+  }
+
   render() {
     return html`${this.element}`;
   }
