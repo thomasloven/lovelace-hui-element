@@ -1,0 +1,247 @@
+title: hui-element
+views:
+  - title: Cards->Rows
+    cards:
+      - type: entities
+        title: Alarm Panel
+        entities:
+          - type: custom:hui-element
+            card_type: alarm-panel
+            entity: alarm_control_panel.alarm
+      - type: entities
+        title: Button
+        entities:
+          - type: custom:hui-element
+            card_type: button
+            entity: alarm_control_panel.alarm
+      - type: entities
+        title: Entities
+        entities:
+          - type: custom:hui-element
+            card_type: entities
+            entities: [light.bed_light]
+      - type: entities
+        title: Gauge
+        entities:
+          - type: custom:hui-element
+            card_type: gauge
+            entity: sensor.outside_temperature
+      - type: entities
+        title: History Graph
+        entities:
+          - type: custom:hui-element
+            card_type: history-graph
+            entities: [sensor.outside_temperature]
+      - type: entities
+        title: Light
+        entities:
+          - type: custom:hui-element
+            card_type: light
+            entity: light.bed_light
+      - type: entities
+        title: Map
+        entities:
+          - type: custom:hui-element
+            card_type: map
+            geo_location_sources: [all]
+      - type: entities
+        title: Markdown
+        entities:
+          - type: custom:hui-element
+            card_type: markdown
+            content: "# Hello"
+      - type: entities
+        title: Media Control
+        entities:
+          - type: custom:hui-element
+            card_type: media-control
+            entity: media_player.bedroom
+      - type: entities
+        title: Picture
+        entities:
+          - type: custom:hui-element
+            card_type: picture
+            image: https://placekitten.com/800/600
+      - type: entities
+        title: Picture Element
+        entities:
+          - type: custom:hui-element
+            card_type: picture-elements
+            image: https://placekitten.com/800/600
+            elements:
+              - type: state-badge
+                entity: light.bed_light
+                style:
+                  left: 50%
+                  top: 50%
+      - type: entities
+        title: Picture Entity
+        entities:
+          - type: custom:hui-element
+            card_type: picture-entity
+            image: https://placekitten.com/800/600
+            entity: light.bed_light
+      - type: entities
+        title: Picture Glance
+        entities:
+          - type: custom:hui-element
+            card_type: picture-glance
+            image: https://placekitten.com/800/600
+            entities: [light.bed_light]
+      - type: entities
+        title: Sensor
+        entities:
+          - type: custom:hui-element
+            card_type: sensor
+            entity: sensor.outside_temperature
+      - type: entities
+        title: Thermostat
+        entities:
+          - type: custom:hui-element
+            card_type: thermostat
+            entity: climate.ecobee
+      - type: entities
+        title: Horizontal Stack
+        entities:
+          - type: custom:hui-element
+            card_type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - light.bed_light
+              - type: glance
+                entities:
+                  - light.bed_light
+
+  - title: Rows->Cards
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Default"
+          - type: custom:hui-element
+            row_type: default
+            entity: light.bed_light
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Button"
+          - type: custom:hui-element
+            row_type: button
+            name: Button
+            tap_action:
+              action: toggle
+            entity: light.bed_light
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Cast"
+          - type: custom:hui-element
+            row_type: cast
+            view: 1
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Divicer"
+          - type: custom:hui-element
+            row_type: divider
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Section"
+          - type: custom:hui-element
+            row_type: section
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Weblink"
+          - type: custom:hui-element
+            row_type: weblink
+            url: https://home-assistant.io
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# buttons"
+          - type: custom:hui-element
+            row_type: buttons
+            entities: [light.bed_light]
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# attribute"
+          - type: custom:hui-element
+            row_type: attribute
+            entity: light.bed_light
+            attribute: brightness
+
+  - title: Elements->Cards
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# State Badge"
+          - type: custom:hui-element
+            element_type: state-badge
+            entity: light.bed_light
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# State Icon"
+          - type: custom:hui-element
+            element_type: state-icon
+            entity: light.bed_light
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# State Label"
+          - type: custom:hui-element
+            element_type: state-label
+            entity: light.bed_light
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Service Button"
+          - type: custom:hui-element
+            element_type: service-button
+            title: Button
+            service: light.turn_on
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Icon"
+          - type: custom:hui-element
+            element_type: icon
+            icon: mdi:home-assistant
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: "# Image"
+          - type: custom:hui-element
+            element_type: image
+            image: https://placekitten.com/80/60
+
+  - title: Test
+    cards:
+      # https://community.home-assistant.io/t/how-to-style-border-none-on-fold-entity-row-hui-element-and-not-get-error-typeerror-null/195774
+      # Fixed in 2822eb4
+      - type: entities
+        entities:
+          - entity: light.bed_light
+            style: |
+              :host {
+                color: red;
+              }
+          - type: custom:hui-element
+            card_type: markdown
+            content: "Hello!"
+            style: |
+              ha-card {
+                color: blue;
+              }
+
+  - title: Errors
+    cards:
+      - type: custom:hui-element
+      - type: custom:hui-element
+        card_type: entities
+        row_type: section
