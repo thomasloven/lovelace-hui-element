@@ -57,8 +57,10 @@ entities:
 ![Skärmavbild 2020-03-25 kl  10 55 26](https://user-images.githubusercontent.com/1299821/77524156-2b0af480-6e87-11ea-8718-b89a57d38dc9.png)
 
 
-Note that in some cases, the internal types may need to be used.
-I.e. to add a media player row as a card, you'd need to specify `row_type: media-player-entity`.
+> Note: In some cases, the internal types may need to be used.
+> I.e. to add a media player row as a card, you'd need to specify `row_type: media-player-entity`.
+
+> Note2: It may also work to set `row_type: default` and hui-element will figure out the correct row type by itself.
 
 The correct types to use can be found in the frontend source code for [cards](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-card-element.ts), [entity-rows](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-row-element.ts) and [elements](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-hui-element.ts).
 
@@ -76,6 +78,6 @@ The `custom:hui-` trick was always a dirty hack that worked by accident rather t
 ```
 resources:
   url: /local/hui-element.js
-  type: js
+  type: module
 ```
 -->

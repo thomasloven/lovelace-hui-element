@@ -5,13 +5,31 @@ class HuiElement extends LitElement {
 
   setConfig(config) {
     const conf = JSON.parse(JSON.stringify(config));
-    const type = conf.card_type !== undefined
-      ? "card"
-      : conf.element_type !== undefined
-        ? "element"
-        : conf.row_type !== undefined
-          ? "row"
-          : "unknown";
+    let type;
+    if(conf.card_type !== undefined)
+      type = "card";
+    if(conf.element_type !== undefined) {
+      if(type !== undefined) {
+        this.element = createCard({
+          type: "error",
+          error: "Must specify only one of card_type, element_type or row_type.",
+          origConfig: conf
+        });
+        return;
+      }
+      type = "element"
+    }
+    if(conf.row_type !== undefined) {
+      if(type !== undefined) {
+        this.element = createCard({
+          type: "error",
+          error: "Must specify only one of card_type, element_type or row_type.",
+          origConfig: conf
+        });
+        return;
+      }
+      type = "row"
+    }
     switch (type) {
       case "card":
         conf.type = conf.card_type;
@@ -25,6 +43,8 @@ class HuiElement extends LitElement {
         break;
       case "row":
         conf.type = conf.row_type;
+        if(conf.type === "default")
+          conf.type = undefined;
         delete conf.row_type;
         this.element = createEntityRow(conf);
         break;
