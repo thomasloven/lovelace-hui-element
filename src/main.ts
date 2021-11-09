@@ -3,6 +3,16 @@ import pjson from "../package.json";
 class HuiElement extends HTMLElement {
   element;
   _hass;
+  _shadowRoot;
+  updateComplete;
+
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    let resolver;
+    this.updateComplete = new Promise((resolve) => (resolver = resolve));
+    this.updateComplete.resolver = resolver;
+  }
 
   async setConfig(config) {
     const conf = JSON.parse(JSON.stringify(config));
@@ -13,6 +23,7 @@ class HuiElement extends HTMLElement {
     if (conf.element_type !== undefined) type = type ? "multiple" : "element";
     if (conf.row_type !== undefined) type = type ? "multiple" : "row";
 
+    if (this.element) this._shadowRoot.removeChild(this.element);
     switch (type) {
       case "card":
         conf.type = conf.card_type;
@@ -49,9 +60,9 @@ class HuiElement extends HTMLElement {
         });
     }
 
-    while (this.firstChild) this.removeChild(this.firstChild);
-    this.appendChild(this.element);
+    this._shadowRoot.appendChild(this.element);
     this.element.hass = this._hass;
+    this.updateComplete.resolver();
   }
 
   set hass(hass) {
@@ -59,6 +70,9 @@ class HuiElement extends HTMLElement {
     if (this.element) this.element.hass = hass;
   }
 
+  get modElement() {
+    return this.element;
+  }
   get shadowRoot() {
     return this.element?.shadowRoot;
   }
