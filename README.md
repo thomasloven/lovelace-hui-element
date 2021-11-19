@@ -72,6 +72,7 @@ If you are using [card-mod](https://github.com/thomasloven/lovelace-card-mod), `
 I.e. styling `hui-element` itself should be as if styling the element inside it.
 
 Ex:
+
 ![image](https://user-images.githubusercontent.com/1299821/142607774-3676597d-ae67-4731-adac-0ea981683b5e.png)
 
 ```yaml
