@@ -1,17 +1,16 @@
-hui-element
-=================
+# hui-element
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 
 The Lovelace interface for Home Assistant has three types of objects, those are:
 
-**Cards**  
+**Cards**
 Examples include `entities`, `glance`, `vertical-stack`, `gauge`, `media-player`.
 
-**Entity rows**  
+**Entity rows**
 The individual rows in an entities card. Examples include `section`, `call-service`, `conditional`, `cast`, but also `sensor-entity`, `toggle-entity`, `climate-entity` and several more that a normal user never have to bother with.
 
-**Elements**  
+**Elements**
 The elements used in a picture-elements card. Examples include `state-badge`, `state-label`, `image`.
 
 When you select a `type:` for something, what is loaded will depend on where.
@@ -26,12 +25,14 @@ For installation, updating and debugging instructions [see this guide](https://g
 Let's say you want to use the `section` entity row in place of a card.
 
 Normally, a section row configuration may look like:
+
 ```yaml
 type: section
 label: Important things
 ```
 
 To make it work as a card, change it to:
+
 ```yaml
 type: custom:hui-element
 row_type: section
@@ -43,6 +44,7 @@ I.e., change `type:` to `row_type:` and add `type: custom:hui-element`.
 `hui-element` will then load the correct row and place it wherever you want it.
 
 Similarly, to put a glance card inside an entities card:
+
 ```yaml
 type: entities
 entities:
@@ -56,7 +58,6 @@ entities:
 
 ![Skärmavbild 2020-03-25 kl  10 55 26](https://user-images.githubusercontent.com/1299821/77524156-2b0af480-6e87-11ea-8718-b89a57d38dc9.png)
 
-
 > Note: In some cases, the internal types may need to be used.
 > I.e. to add a media player row as a card, you'd need to specify `row_type: media-player-entity`.
 
@@ -64,14 +65,56 @@ entities:
 
 The correct types to use can be found in the frontend source code for [cards](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-card-element.ts), [entity-rows](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-row-element.ts) and [elements](https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/create-element/create-hui-element.ts).
 
+### A note on card-mod
+
+If you are using [card-mod](https://github.com/thomasloven/lovelace-card-mod), `hui-element` will be "transparent".
+
+I.e. styling `hui-element` itself should be as if styling the element inside it.
+
+Ex:
+![image](https://user-images.githubusercontent.com/1299821/142607774-3676597d-ae67-4731-adac-0ea981683b5e.png)
+
+```yaml
+- type: entities
+  entities:
+    - type: section
+      label: Default internal styling
+      card_mod:
+        style: |
+          .divider {
+            background-color: red;
+          }
+    - type: custom:hui-element
+      row_type: section
+      label: Hui-element internal styling
+      card_mod:
+        style: |
+          .divider {
+            background-color: green;
+          }
+- type: entities
+  entities:
+    - type: section
+      label: Default styled from card
+    - type: custom:hui-element
+      row_type: section
+      label: Hui-element styled from card
+  card_mod:
+    style:
+      hui-section-row $: |
+        .divider { background-color: blue; }
+      hui-element $: |
+        .divider { background-color: orange;}
+```
+
 ## FAQ
 
-**Does this replace the `custom:hui-` trick?**  
+**Does this replace the `custom:hui-` trick?**
 Yes. That's where the name is from.
 The `custom:hui-` trick was always a dirty hack that worked by accident rather than design, and since 0.107 it works intermittently at best.
 
-
 ---
+
 <a href="https://www.buymeacoffee.com/uqD6KHCdJ" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 <!--

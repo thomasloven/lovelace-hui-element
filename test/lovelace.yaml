@@ -227,10 +227,11 @@ views:
       - type: entities
         entities:
           - entity: light.bed_light
-            style: |
-              :host {
-                color: red;
-              }
+            card_mod:
+              style: |
+                :host {
+                  color: red;
+                }
           - type: custom:hui-element
             card_type: markdown
             content: "Hello!"
@@ -238,6 +239,36 @@ views:
               ha-card {
                 color: blue;
               }
+      - type: entities
+        entities:
+          - type: section
+            label: Default internal styling
+            card_mod:
+              style: |
+                .divider {
+                  background-color: red;
+                }
+          - type: custom:hui-element
+            row_type: section
+            label: Hui-element internal styling
+            card_mod:
+              style: |
+                .divider {
+                  background-color: green;
+                }
+      - type: entities
+        entities:
+          - type: section
+            label: Default styled from card
+          - type: custom:hui-element
+            row_type: section
+            label: Hui-element styled from card
+        card_mod:
+          style:
+            hui-section-row $: |
+              .divider { background-color: blue; }
+            hui-element $: |
+              .divider { background-color: orange;}
 
   - title: Errors
     cards:

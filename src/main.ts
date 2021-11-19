@@ -35,6 +35,7 @@ class HuiElement extends HTMLElement {
         conf.type = conf.element_type;
         delete conf.element_type;
         this.element = await helpers.createHuiElement(conf);
+        this.applyStyle(this.element, "element", conf);
         break;
 
       case "row":
@@ -42,6 +43,7 @@ class HuiElement extends HTMLElement {
         if (conf.type === "default") conf.type = undefined;
         delete conf.row_type;
         this.element = await helpers.createRowElement(conf);
+        this.applyStyle(this.element, "row", conf);
         break;
 
       case "multiple":
@@ -62,7 +64,19 @@ class HuiElement extends HTMLElement {
 
     this._shadowRoot.appendChild(this.element);
     this.element.hass = this._hass;
+    if (this.element.updateComplete) await this.element.updateComplete;
     this.updateComplete.resolver();
+  }
+
+  async applyStyle(el, type, config) {
+    if (config.card_mod === undefined) return;
+    await customElements.whenDefined("card-mod");
+    (customElements.get("card-mod") as any).applyToElement(
+      el,
+      type,
+      config.card_mod ? config.card_mod.style : config.style,
+      { config }
+    );
   }
 
   set hass(hass) {
@@ -73,6 +87,7 @@ class HuiElement extends HTMLElement {
   get modElement() {
     return this.element;
   }
+
   get shadowRoot() {
     return this.element?.shadowRoot;
   }
