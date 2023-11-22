@@ -20,6 +20,8 @@ Sometimes you may want to use things in other places, though. That's where `hui-
 
 ## Usage
 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-hui-element)
+
 For installation, updating and debugging instructions [see this guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins).
 
 Let's say you want to use the `section` entity row in place of a card.
